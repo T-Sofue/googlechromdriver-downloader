@@ -10,8 +10,14 @@ def download():
     file="chromedriver_win32.zip"
 
     content=requests.get(check)
-    cver=''.join(content.text).split("\n")[11]
-    cver=cver.split("Latest version:")[1][37:39]
+#    cver=''.join(content.text).split("\n")[11]
+#    cver=cver.split("Latest version:")[1][37:39]
+
+    start=content.text.find("<title>")
+    end=content.text.find("/<title>")
+    title=content.text[start:end]
+    cver=''.join(title).split(" ")[2][0:2]
+
     content=requests.get(driver)
     dver=''.join(content.text).split("\n")[127]
     dver=dver.split("If you are using Chrome version "+str(cver))[1][94:]
